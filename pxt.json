@@ -5,16 +5,16 @@
         "device": "*"
     },
     "files": [
-        "main.blocks",
-        "main.ts",
         "README.md",
-        "assets.json",
-        "extras.ts",
-        "tilemap.g.jres",
-        "tilemap.g.ts"
+        "extras.ts"
     ],
     "testFiles": [
-        "test.ts"
+        "test.ts",
+        "main.blocks",
+        "main.ts",
+        "tilemap.g.jres",
+        "tilemap.g.ts",
+        "assets.json"
     ],
     "targetVersions": {
         "target": "2.0.56",
@@ -26,7 +26,7 @@
     "preferredEditor": "tsprj",
     "palette": [
         "#000000",
-        "#FFFFF0",
+        "#FFFFFF",
         "#FF2121",
         "#FF93C4",
         "#FF8135",

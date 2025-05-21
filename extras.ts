@@ -157,7 +157,7 @@ namespace images {
     //% source.shadow=variables_get
     //% source.defl=picture
     //% target.shadow=variables_get
-    //% target.defl=picture
+    //% target.defl="picture"
     //% sx.defl=0
     //% sy.defl=0
     //% sw.defl=16
@@ -177,7 +177,7 @@ namespace images {
     //% block="Create image of $source scaled by width $width height $height"
     //% blockId="extras_Stretch_Image_API"
     //% source.shadow=variables_get
-    //% source.defl=picture
+    //% source.defl="picture"
     //% group="Drawing"
     export function stretchImage(source: Image, width: number, height: number) {
         let i = image.create(source.width * width, source.height * height)
@@ -185,5 +185,34 @@ namespace images {
         return i
     }
 
+    export enum Imagefonts {
+        font8,
+        font5,
+        font12
+    }
 
+    /**
+     * Draws text on an image
+     */
+    //% block="Print text $text on $target at x $x y $y color $c||font $font"
+    //% blockId="extras_print_text"
+    //% target.shadow=variables_get
+    //% target.defl="picture"
+    //% group="Text"
+    export function print_block(text: string, target: Image, x: number, y: number, c: number = 1, font: Imagefonts = Imagefonts.font8) {
+        target.print(text, x, y, c, [image.font8, image.font5, image.font12][font])
+    }
+
+    /**
+     * Draws text on an image
+     */
+    //% block="Print centered (x) text $text on $target at y $y color $c||font $font"
+    //% blockId="extras_print_center_text"
+    //% target.shadow=variables_get
+    //% target.defl="picture"
+    //% group="Text"
+    //% weight=1
+    export function printCenter_block(text: string, target: Image, y: number, c: number = 1, font: Imagefonts = Imagefonts.font8) {
+        target.printCenter(text, y, c, [image.font8, image.font5, image.font12][font])
+    }
 }

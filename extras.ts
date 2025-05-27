@@ -66,8 +66,7 @@ namespace scene {
     export function addSystemMenuEntry_block(image: Image, text: string, onClick: ()=>void) {
         scene.systemMenu.addEntry(()=>text, onClick, image)
     }
-    
-    
+
 }
 
 namespace Math {
@@ -75,7 +74,47 @@ namespace Math {
     //% block="$bool ? $x : $y"
     //% weight=0
     export function returnIf_block(bool: boolean, x: any, y: any) {
-        return ()=>bool ? x : y
+        return bool ? x : y
+    }
+
+    export enum BitOp {
+        //% block="&"
+        and,
+        //% block="|"
+        or,
+        //% block="^"
+        xor,
+        //% block=">>"
+        shift_right,
+        //% block="<<"
+        shift_left,
+        //% block=">>>"
+        shift_right_0_fill
+    }
+
+    /**
+     * Bit operations! Since blocks call functions, this is most certainly slower than using these outside of block code.
+     */
+    //% blockID="extras_bit_ops"
+    //% block="$a $op $b"
+    //% group="Bit Operations"
+    export function bitOp_block(a: number, op: BitOp, b: number) {
+        switch (op) {
+            case 0: return a & b
+            case 1: return a | b
+            case 2: return a ^ b
+            case 3: return a >> b
+            case 4: return a << b
+            case 5: return a >>> b
+        }
+        return 0
+    }
+
+    //% blockID="extras_bit_op_not"
+    //% block="~$a"
+    //% group="Bit Operations"
+    export function bitOp_not_block(a: number) {
+        return ~a
     }
 }
 

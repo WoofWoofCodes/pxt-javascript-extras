@@ -22,7 +22,7 @@ namespace sprites {
         s.setFlag(SpriteFlag.Destroyed, false)
         game.currentScene().physicsEngine.addSprite(s)
         game.currentScene().allSprites.push(s)
-        game.splash(game.currentScene().spritesByKind[s.kind()].add(s))
+        game.currentScene().spritesByKind[s.kind()].add(s)
     }
 /*
     _destroyCore() {

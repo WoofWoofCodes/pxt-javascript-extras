@@ -255,3 +255,105 @@ namespace images {
         target.printCenter(text, y, c, [image.font8, image.font5, image.font12][font])
     }
 }
+
+//% weight=71 color="#a5b1c3"
+//% advanced="true"
+namespace buffer {
+
+    enum buffer_numbers {
+
+    }
+
+    //% blockID="extras_create_buffer"
+    //% block="create empty buffer with length $l"
+    //% group="create"
+    //% weight=100
+    export function createBuffer_block (l: number) {
+        return control.createBuffer(l)
+    }
+
+    //% blockID="extras_create_buffer"
+    //% block="create buffer from array $a"
+    //% a.shadow=variables_get
+    //% a.defl="list"
+    //% group="create"
+    export function createBufferFromArray_block(a: Array<number>) {
+        return Buffer.fromArray(a)
+    }
+
+    //% blockID="extras_create_buffer"
+    //% block="create buffer from base 64 string $s"
+    //% group="create"
+    export function createBufferFromBase64_block(s: string) {
+        return Buffer.fromBase64(s)
+    }
+
+    //% blockID="extras_create_buffer"
+    //% block="create buffer from hex string $s"
+    //% group="create"
+    export function createBufferFromHex_block(s: string) {
+        return Buffer.fromHex(s)
+    }
+    
+    //% blockID="extras_write128_buffer"
+    //% block="$b write $n at $p"
+    //% b.shadow=variables_get
+    //% b.defl="buffer"
+    //% group="Modify"
+    export function bufferWrite128_block(b: Buffer, p: number, n: number) {
+        b[p] = n
+    }
+
+    //% blockID="extras_write_buffer"
+    //% block="$b write $n as $t at $p"
+    //% b.shadow=variables_get
+    //% b.defl="buffer"
+    //% group="Modify"
+    export function bufferWrite_block(b: Buffer, t: NumberFormat, p: number, n: number) {
+        b.setNumber(t, p, n)
+    }
+
+    //% blockID="extras_read128_buffer"
+    //% block="$b read number at $p"
+    //% b.shadow=variables_get
+    //% b.defl="buffer"
+    //% group="Read"
+    export function bufferRead128_block(b: Buffer, p: number) {
+        return b[p]
+    }
+
+    //% blockID="extras_read_buffer"
+    //% block="$b read number at $p as $t"
+    //% b.shadow=variables_get
+    //% b.defl="buffer"
+    //% group="Read"
+    export function bufferReadNumber_block(b: Buffer, t: NumberFormat, p: number) {
+        return b.getNumber(t, p)
+    }
+}
+
+
+namespace arrays_blocks {
+    
+    //% blockID="extras_slice_array"
+    //% block="Get array of $a from $s to $e"
+    //% a.shadow=variables_get
+    //% a.defl="list"
+    //% s.defl=0
+    //% e.defl=0
+    //% group="Read"
+    //% blockNamespace="arrays"
+    export function slice_array_block(a: Array<any>, s: number, e: number) {
+        return a.slice(s, e)
+    }
+
+    //% blockID="extras_copy_array"
+    //% block="copy $a"
+    //% a.shadow=variables_get
+    //% a.defl="list"
+    //% group="Read"
+    //% blockNamespace="arrays"
+    export function copy_array_block(a: Array<any>, s: number, e: number) {
+        return a.slice()
+    }
+}

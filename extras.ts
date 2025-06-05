@@ -13,6 +13,32 @@ namespace sprites {
     export function hasFlag(s: Sprite, f: SpriteFlag) {
         return (s.flags & f) ? true : false
     }
+
+    //% blockID="extras_undestroy_sprite"
+    //% block="undestroy sprite $s=variables_get(mySprite)"
+    //% group="Create" weight=0
+    export function unDestroySprite_block(s: Sprite) {
+        game.currentScene().addSprite(s)
+        s.setFlag(SpriteFlag.Destroyed, false)
+        game.currentScene().physicsEngine.addSprite(s)
+        game.currentScene().allSprites.push(s)
+        game.splash(game.currentScene().spritesByKind[s.kind()].add(s))
+    }
+/*
+    _destroyCore() {
+        this.flags |= sprites.Flag.Destroyed;
+        const scene = game.currentScene();
+        scene.allSprites.removeElement(this);
+        if (this.kind() >= 0 && scene.spritesByKind[this.kind()])
+            scene.spritesByKind[this.kind()].remove(this);
+        scene.physicsEngine.removeSprite(this);
+        if (this.destroyHandler)
+            this.destroyHandler();
+        scene.destroyedHandlers
+            .filter(h => h.kind == this.kind())
+            .forEach(h => h.handler(this));
+    }
+*/
 }
 
 namespace scene {
@@ -259,10 +285,6 @@ namespace images {
 //% weight=71 color="#a5b1c3"
 //% advanced="true"
 namespace buffer {
-
-    enum buffer_numbers {
-
-    }
 
     //% blockID="extras_create_buffer"
     //% block="create empty buffer with length $l"

@@ -353,7 +353,7 @@ namespace arrays_blocks {
     //% a.defl="list"
     //% group="Read"
     //% blockNamespace="arrays"
-    export function copy_array_block(a: Array<any>, s: number, e: number) {
+    export function copy_array_block(a: Array<any>) {
         return a.slice()
     }
 }

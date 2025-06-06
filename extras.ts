@@ -16,29 +16,14 @@ namespace sprites {
 
     //% blockID="extras_undestroy_sprite"
     //% block="undestroy sprite $s=variables_get(mySprite)"
-    //% group="Create" weight=0
-    export function unDestroySprite_block(s: Sprite) {
-        game.currentScene().addSprite(s)
+    //% group="Effects" weight=79
+    export function unDestroySprite_block(s: Sprite) { // this too so long to figure out :D
         s.setFlag(SpriteFlag.Destroyed, false)
+        game.currentScene().spritesByKind[s.kind()].add(s)
         game.currentScene().physicsEngine.addSprite(s)
         game.currentScene().allSprites.push(s)
-        game.currentScene().spritesByKind[s.kind()].add(s)
+        game.currentScene().createdHandlers.filter(h => h.kind == s.kind()).forEach(h => h.handler(s))
     }
-/*
-    _destroyCore() {
-        this.flags |= sprites.Flag.Destroyed;
-        const scene = game.currentScene();
-        scene.allSprites.removeElement(this);
-        if (this.kind() >= 0 && scene.spritesByKind[this.kind()])
-            scene.spritesByKind[this.kind()].remove(this);
-        scene.physicsEngine.removeSprite(this);
-        if (this.destroyHandler)
-            this.destroyHandler();
-        scene.destroyedHandlers
-            .filter(h => h.kind == this.kind())
-            .forEach(h => h.handler(this));
-    }
-*/
 }
 
 namespace scene {

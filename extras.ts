@@ -28,7 +28,7 @@ namespace sprites {
 
 namespace scene {
 
-    //% blockID="extras_get_screen_brightness"
+    //% blockId="extras_get_screen_brightness"
     //% block="screen brightness"
     //% group="System Menu"
     //% weight=0
@@ -36,7 +36,7 @@ namespace scene {
         return screen.brightness()
     }
 
-    //% blockID="extras_set_screen_brightness"
+    //% blockId="extras_set_screen_brightness"
     //% block="set screen brightness $brightness"
     //% brightness.default=100
     //% group="System Menu"
@@ -45,7 +45,7 @@ namespace scene {
         screen.setBrightness(brightness)
     }
 
-    //% blockID="extras_open_system_menu"
+    //% blockId="extras_open_system_menu"
     //% block="open system menu"
     //% group="System Menu"
     //% weight=0
@@ -53,7 +53,7 @@ namespace scene {
         scene.systemMenu.showSystemMenu()
     }
 
-    //% blockID="extras_close_system_menu"
+    //% blockId="extras_close_system_menu"
     //% block="close system menu"
     //% group="System Menu"
     //% weight=0
@@ -61,7 +61,7 @@ namespace scene {
         scene.systemMenu.closeMenu()
     }
 
-    //% blockID="extras_is_system_menu_open"
+    //% blockId="extras_is_system_menu_open"
     //% block="is system menu open"
     //% group="System Menu"
     //% weight=0
@@ -69,7 +69,7 @@ namespace scene {
         return scene.systemMenu.isVisible()
     }
 
-    //% blockID="extras_add_system_menu_entry"
+    //% blockId="extras_add_system_menu_entry"
     //% block="add entry to system menu with image $image and text $text"
     //% image.shadow=screen_image_picker
     //% group="System Menu"
@@ -164,9 +164,50 @@ namespace info {
 
 }
 
+namespace music {
+    //% blockID="extras_play_instruction"
+    //% block="play instructions $instructions || after $when ms"
+    //% blockNamespace=music 
+    //% inBasicCategory = true
+    //% blockGap=8
+    //% group="Tone"
+    //% instructions.shadow=variables_get
+    //% instructions.defl="buffer"
+    export function playInstructions_block(instructions: Buffer, when: number = 0) {
+        music.playInstructions(when, instructions)
+    }
+
+    /**
+    * Writes info to be played by the Play Instructions block. Buffer should be 12 bytes long.
+    */
+    //% blockID="extras_add_note"
+    //% block="write sound instructions to buffer $target ms $ms start volume $beg end volume $end wave type $soundWave start hz $hz end hz $endHz total volume $volume start byte $writeLoc"
+    //% blockNamespace=music 
+    //% inBasicCategory = true
+    //% blockGap=8
+    //% group="Tone"
+    //% target.shadow=variables_get
+    //% target.defl="buffer"
+    //% volume.shadow="extras_music_volume"
+    export function addNote_block(target: Buffer, ms: number, beg: number, end: number, soundWave: number, hz: number, endHz: number, volume: number = -1, writeLoc: number = 0) {
+        if (volume < 0) volume = music.volume()
+        music.addNote(target, writeLoc, ms, beg, end, soundWave, hz, volume, endHz)
+    }
+
+    /**
+    * The volume set by the user in the system menu.
+    */
+    //% blockId="extras_music_volume"
+    //% block="system volume"
+    //% group="Volume"
+    export function volume_block() {
+        return music.volume()
+    }
+}
+
 namespace images {
 
-    //% blockID="extras_color_bubble"
+    //% blockId="extras_color_bubble"
     //% block="$color"
     //% color.shadow=colorindexpicker
     //% group="Create"
@@ -178,7 +219,7 @@ namespace images {
     /** 
     * Returns an image rotated by -90, 90, -180, 180, -270, 270 deg clockwise. Only works well with square images.
     */
-    //% blockID="extras_rotate_image"
+    //% blockId="extras_rotate_image"
     //% block="rotate $image cardinal degrees $deg"
     //% image.shadow=variables_get
     //% image.defl="picture"

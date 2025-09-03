@@ -306,6 +306,19 @@ namespace images {
     export function printCenter_block(text: string, target: Image, y: number, c: number = 1, font: Imagefonts = Imagefonts.font8) {
         target.printCenter(text, y, c, [image.font8, image.font5, image.font12][font])
     }
+
+    /**
+     * One byte, per color channel (rgb), per color, so total 48 bytes.
+     */
+    //% blockId=extras_set_palette
+    //% group="Create"
+    //% blockNamespace="images"
+    //% block="set palette $palette"
+    //% palette.shadow=variables_get
+    //% palette.defl="buffer"
+    export function setPalette_block(palette: Buffer) {
+        image.setPalette(palette)
+    }
 }
 
 //% weight=71 color="#a5b1c3"

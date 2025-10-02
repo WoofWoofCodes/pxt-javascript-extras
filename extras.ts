@@ -46,14 +46,28 @@ namespace extras {
     export function panic_block(code: number) {
         control.panic(code)
     }
+}
 
+namespace loops {
     /**
      * Run code seemingly at the same time that other code is running
      */
     //% blockId="extras_run_in_parallel"
-    //% block="run in parallel $a"
+    //% block="run in parallel"
+    //% handlerStatement
     export function runInParallel_block(a: ()=>void) {
         control.runInParallel(a)
+    }
+}
+
+namespace controller {
+    /**
+     * Change the system keys. 'Gif' is only used when sharing the project.
+     */
+    //% blockId="extras_setSystemKeys"
+    //% block="set system keys | screenshot $screenshot git $gif menu $menu reset $reset"
+    export function setSystemKeys_block(screenshot: keymap.KeyCode, gif: keymap.KeyCode, menu: keymap.KeyCode, reset: keymap.KeyCode) {
+        keymap.setSystemKeys(screenshot, gif, menu, reset)
     }
 }
 

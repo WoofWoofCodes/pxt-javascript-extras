@@ -26,8 +26,38 @@ namespace sprites {
     }
 }
 
-namespace scene {
+//% weight=10 icon="\uf03e" color="#1d073d"
+//% advanced=true
+namespace extras {
+    /**
+     * Causes an error if the condition is false. Error code can be seen when using debug mode.
+     */
+    //% blockId="extras_assert"
+    //% block="assert $cond code $code"
+    export function assert_block(cond: boolean, code: number) {
+        control.assert(cond, code)
+    }
 
+    /**
+     * Causes an error with a code that shows up in the panic message.
+     */
+    //% blockId="extras_panic"
+    //% block="panic code $code"
+    export function panic_block(code: number) {
+        control.panic(code)
+    }
+
+    /**
+     * Run code seemingly at the same time that other code is running
+     */
+    //% blockId="extras_run_in_parallel"
+    //% block="run in parallel $a"
+    export function runInParallel_block(a: ()=>void) {
+        control.runInParallel(a)
+    }
+}
+
+namespace scene {
     //% blockId="extras_get_screen_brightness"
     //% block="screen brightness"
     //% group="System Menu"

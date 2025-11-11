@@ -256,10 +256,10 @@ namespace images {
     //% color.shadow=colorindexpicker
     //% group="Create"
     //% weight=0
-    export function color_block(color: number): number { // stolen from unsignedArduino's colorBlock extension >:)
+    export function color_block(color: number): number { // from unsignedArduino's colorBlock extension >:) (With permission)
         return color
     }
-    
+
     /** 
     * Returns an image rotated by -90, 90, -180, 180, -270, 270 deg clockwise. Only works well with square images.
     */
@@ -327,28 +327,53 @@ namespace images {
     }
 
     /**
-     * Draws text on an image
+     * Select from the 3 default Makecode fonts
      */
-    //% block="Print text $text on $target at x $x y $y color $c||font $font"
-    //% blockId="extras_print_text"
-    //% target.shadow=variables_get
-    //% target.defl="picture"
+    //% blockId="extras_font_selector"
+    //% block="font $font"
     //% group="Text"
-    export function print_block(text: string, target: Image, x: number, y: number, c: number = 1, font: Imagefonts = Imagefonts.font8) {
-        target.print(text, x, y, c, [image.font8, image.font5, image.font12][font])
+    export function font_block(font: Imagefonts) {
+        return [image.font8, image.font5, image.font12][font]
     }
+
+    /**
+     * Create a font from a Base64 data string
+     */
+    //% blockID="extras_create_font"
+    //% block="create font of width $width height $height data $buffer"
+    //% buffer.shadow=variables_get
+    //% buffer.defl="buffer"
+    //% group="Text"
+    export function create_font_from_base64_block(width: number = 0, height: number = 0, buffer: Buffer) {
+        return {charWidth: width, charHeight: height, data: buffer} as image.Font
+    }
+
 
     /**
      * Draws text on an image
      */
-    //% block="Print centered (x) text $text on $target at y $y color $c||font $font"
+    //% block="Print text $text on $target at x $x y $y color $c font $font"
+    //% blockId="extras_print_text"
+    //% target.shadow=variables_get
+    //% target.defl="picture"
+    //% font.shadow="extras_font_selector"
+    //% group="Text"
+    export function print_block(text: string, target: Image, x: number, y: number, c: number = 1, font: image.Font) {
+        target.print(text, x, y, c, font)
+    }
+
+    /**
+     * Draws centered text on an image
+     */
+    //% block="Print centered (x) text $text on $target at y $y color $c font $font"
     //% blockId="extras_print_center_text"
     //% target.shadow=variables_get
     //% target.defl="picture"
+    //% font.shadow="extras_font_selector"
     //% group="Text"
     //% weight=1
-    export function printCenter_block(text: string, target: Image, y: number, c: number = 1, font: Imagefonts = Imagefonts.font8) {
-        target.printCenter(text, y, c, [image.font8, image.font5, image.font12][font])
+    export function printCenter_block(text: string, target: Image, y: number, c: number = 1, font: image.Font) {
+        target.printCenter(text, y, c, font)
     }
 
     /**
@@ -373,11 +398,11 @@ namespace buffer {
     //% block="create empty buffer with length $l"
     //% group="create"
     //% weight=100
-    export function createBuffer_block (l: number) {
+    export function createBuffer_block(l: number) {
         return control.createBuffer(l)
     }
 
-    //% blockID="extras_create_buffer"
+    //% blockID="extras_create_buffer_from_array"
     //% block="create buffer from array $a"
     //% a.shadow=variables_get
     //% a.defl="list"
@@ -386,14 +411,14 @@ namespace buffer {
         return Buffer.fromArray(a)
     }
 
-    //% blockID="extras_create_buffer"
+    //% blockID="extras_create_buffer_from_base64"
     //% block="create buffer from base 64 string $s"
     //% group="create"
     export function createBufferFromBase64_block(s: string) {
         return Buffer.fromBase64(s)
     }
 
-    //% blockID="extras_create_buffer"
+    //% blockID="extras_create_buffer_from_hex"
     //% block="create buffer from hex string $s"
     //% group="create"
     export function createBufferFromHex_block(s: string) {

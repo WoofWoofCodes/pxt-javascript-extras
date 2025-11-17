@@ -19,13 +19,13 @@
         "assets.json"
     ],
     "targetVersions": {
-        "target": "2.0.61",
+        "target": "2.0.62",
         "targetId": "arcade"
     },
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "blocksprj",
+    "preferredEditor": "tsprj",
     "palette": [
         "#000000",
         "#FFFFFF",

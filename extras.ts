@@ -17,7 +17,7 @@ namespace sprites {
     //% blockID="extras_undestroy_sprite"
     //% block="undestroy sprite $s=variables_get(mySprite)"
     //% group="Effects" weight=79
-    export function unDestroySprite_block(s: Sprite) { // this too so long to figure out :D
+    export function unDestroySprite_block(s: Sprite) { // this took so long to figure out :D
         s.setFlag(SpriteFlag.Destroyed, false)
         game.currentScene().spritesByKind[s.kind()].add(s)
         game.currentScene().physicsEngine.addSprite(s)
@@ -57,6 +57,25 @@ namespace loops {
     //% handlerStatement
     export function runInParallel_block(a: ()=>void) {
         control.runInParallel(a)
+    }
+
+    /**
+     * A better for loop. Suggested by AlexK on the Makecode Forum.
+     * @param min the first value index is set to
+     * @param max the loop stops if the index value is equal to or greater than this value
+     * @param step index increases by this amount after the code in the loop runs
+     */
+    //% draggableParameters="reporter"
+    //% blockId="extras_for_loop"
+    //% block="for (let $index = $min; $condition; index += $step)"
+    //% index.shadow=variables_get
+    //% index.defl="index"
+    //% step.defl=1
+    //% handlerStatement
+    export function forLoop_block(min: number, condition: boolean, step: number = 1, funct: (index: number)=>void) {
+        for (let i = min; condition; i+=step) {
+            funct(i)
+        }
     }
 }
 
@@ -118,8 +137,24 @@ namespace scene {
     //% image.shadow=screen_image_picker
     //% group="System Menu"
     //% weight=1
+    //% blockAllowMultiple=1
     export function addSystemMenuEntry_block(image: Image, text: string, onClick: ()=>void) {
         scene.systemMenu.addEntry(()=>text, onClick, image)
+    }
+
+    /**
+     * Create a renderable that draws on the screen every frame. This block is from the arcade-sprite-utils extension by Richard, Riknoll on GitHub.
+     */
+    //% block="Create renderable on z-index $index to $screen"
+    //% blockId="extras_sprite_util_ext_create_renderable"
+    //% help=github:arcade-sprite-util/docs/create-renderable
+    //% draggableParameters="reporter"
+    //% blockAllowMultiple=1
+    //% weight=0
+    //% group=Screen
+    //% handlerStatement
+    export function createRenderable_block(index: number, handler: (screen: Image) => void) {
+        scene.createRenderable(index, handler);
     }
 
 }
@@ -209,7 +244,7 @@ namespace info {
 }
 
 namespace music {
-    //% blockID="extras_play_instruction"
+    //% blockId="extras_play_instruction"
     //% block="play instructions $instructions || after $when ms"
     //% blockNamespace=music 
     //% inBasicCategory = true

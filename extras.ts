@@ -26,6 +26,17 @@ namespace sprites {
     }
 }
 
+namespace game {
+    //% blockId=extras_on_update
+    //% block="on game update"
+    //% blockAllowMultiple=1
+    //% handlerStatement
+    //% group="Gameplay"
+    export function onUpdate_block(funct: ()=>void) {
+        game.onUpdate(funct)
+    }
+}
+
 //% weight=10 icon="\uf03e" color="#1d073d"
 //% advanced=true
 namespace extras {
@@ -50,7 +61,7 @@ namespace extras {
 
 namespace loops {
     /**
-     * Run code seemingly at the same time that other code is running
+     * Run code (seemingly) at the same time that other code is running
      */
     //% blockId="extras_run_in_parallel"
     //% block="run in parallel"
@@ -73,7 +84,7 @@ namespace loops {
     //% step.defl=1
     //% handlerStatement
     export function forLoop_block(min: number, condition: boolean, step: number = 1, funct: (index: number)=>void) {
-        for (let i = min; condition; i+=step) {
+        for (let i = min; condition; i += step) {
             funct(i)
         }
     }
@@ -155,8 +166,7 @@ namespace scene {
     //% handlerStatement
     export function createRenderable_block(index: number, handler: (screen: Image) => void) {
         scene.createRenderable(index, handler);
-    }
-
+    }    
 }
 
 namespace Math {
@@ -416,12 +426,42 @@ namespace images {
      */
     //% blockId=extras_set_palette
     //% group="Create"
-    //% blockNamespace="images"
     //% block="set palette $palette"
     //% palette.shadow=variables_get
     //% palette.defl="buffer"
     export function setPalette_block(palette: Buffer) {
         image.setPalette(palette)
+    }
+
+    //% block="Shade $target with $shadeImage at x $x y $y ramp buffer $rampBuffer"
+    //% blockId=extras_shade_image
+    //% target.shadow=variables_get
+    //% target.defl="myImage"
+    //% shadeImage.shadow=variables_get
+    //% shadeImage.defl="myImage"
+    //% x.defl=0
+    //% y.defl=0
+    //% rampBuffer.shadow=variables_get
+    //% rampBuffer.defl="buffer"
+    //% group="Shader"
+    export function shadeImage_block(target: Image, shadeImage: Image, x: number, y: number, rampBuffer: Buffer) {
+        helpers.mapImage(target, shadeImage, x, y, rampBuffer)
+    }
+
+    /**
+     * Merges an image with another image, comparing the pixel values and keeping the minimum value at each point.
+     */
+    //% block="$dst merge $src at x $x y $y"
+    //% blockId=extras_merge_image
+    //% dst.shadow=variables_get
+    //% dst.defl="myImage"
+    //% src.shadow=variables_get
+    //% src.defl="myImage"
+    //% x.defl=0
+    //% y.defl=0
+    //% group="Shader"
+    export function mergeImage_block(dst: Image, src: Image, x: number = 0, y: number = 0) {
+        helpers.mergeImage(dst, src, x, y)
     }
 }
 

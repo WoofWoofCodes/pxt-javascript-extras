@@ -4,7 +4,8 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "shader": "*"
+        "shader": "*",
+        "pxt-custom-questions": "github:woofwoofcodes/pxt-custom-questions#v0.0.2"
     },
     "files": [
         "README.md",

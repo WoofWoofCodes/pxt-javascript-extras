@@ -57,6 +57,16 @@ namespace extras {
     export function panic_block(code: number) {
         control.panic(code)
     }
+
+    /**
+     * Returns the type of a variable as a string. 
+     * Supports "number", "string", "boolean", and returns "object" for everything else.
+     */
+    //% blockId="extras_typeof"
+    //% block="type of $thing"
+    export function typeof_block(thing: any) {
+        return typeof thing
+    }
 }
 
 namespace loops {

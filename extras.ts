@@ -60,7 +60,7 @@ namespace extras {
 
     /**
      * Returns the type of a variable as a string. 
-     * Supports "number", "string", "boolean", and returns "object" for everything else.
+     * Supports "string", "number", "boolean", "undefined", "function", "bigint", "symbol", and "object"
      */
     //% blockId="extras_typeof"
     //% block="type of $thing"

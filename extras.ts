@@ -547,9 +547,7 @@ namespace buffer {
     }
 }
 
-
 namespace arrays_blocks {
-    
     //% blockID="extras_slice_array"
     //% block="Get array of $a from $s to $e"
     //% a.shadow=variables_get
@@ -570,5 +568,49 @@ namespace arrays_blocks {
     //% blockNamespace="arrays"
     export function copy_array_block(a: Array<any>) {
         return a.slice()
+    }
+}
+
+//% blockNamespace="text"
+namespace text {
+    
+    /**
+     * Converts a given string into all uppercase.
+     */
+    //% blockID="extras_to_upper"
+    //% block="uppercase $s"
+    //% blockNamespace="text"
+    export function toUpperCase_block(s: string) {
+        return s.toUpperCase()
+    }
+
+    /**
+     * Converts a given string into all lowercase.
+     */
+    //% blockID="extras_to_lower"
+    //% block="lowercase $s"
+    //% blockNamespace="text"
+    export function toLowerCase_block(s: string) {
+        return s.toLowerCase()
+    }
+
+    /**
+     * Replaces the first instance of a substring in a given string with another substring.
+     */
+    //% blockID="extras_replace"
+    //% block="$s replace first $toReplace with $insert"
+    //% blockNamespace="text"
+    export function replace_block(s: string, toReplace: string, insert: string) {
+        return s.replace(toReplace, insert)
+    }
+
+    /**
+     * Replaces all instances of a substring in a given string with another substring.
+     */
+    //% blockID="extras_replace_all"
+    //% block="$s replace all $toReplace with $insert"
+    //% blockNamespace="text"
+    export function replaceAll_block(s: string, toReplace: string, insert: string) {
+        return s.replaceAll(toReplace, insert)
     }
 }

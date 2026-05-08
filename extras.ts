@@ -613,4 +613,24 @@ namespace text {
     export function replaceAll_block(s: string, toReplace: string, insert: string) {
         return s.replaceAll(toReplace, insert)
     }
+
+    /**
+     * Returnes a substring of the given string from a start location to the end of the string or an end position if specified.
+     */
+    //% blockID="extras_slice"
+    //% block="substring of $s from $start || to $end"
+    //% blockNamespace="text"
+    export function slice_block(s: string, start: number, end?: number) {
+        return s.slice(start, end)
+    }
+
+    /**
+     * Returns a substing of the given string with the whitespace removed from both ends.
+     */
+    //% blockID="extras_trim"
+    //% block="trim $s"
+    //% blockNamespace="text"
+    export function trim_block(s: string) {
+        return s.trim()
+    }
 }

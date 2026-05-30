@@ -24,6 +24,18 @@ namespace sprites {
         game.currentScene().allSprites.push(s)
         game.currentScene().createdHandlers.filter(h => h.kind == s.kind()).forEach(h => h.handler(s))
     }
+
+    /**
+     * The follow block but with the extra option! 
+     */
+    //% blockId="extras follow"
+    //% block="set $s=variables_get(myEnemy) follow $target=variables_get(mySprite) with speed $speed and turn rate $turnRate"
+    //% speed.defl=100
+    //% group="Physics"
+    //% weight=9
+    export function follow_block(s: Sprite, target: Sprite, speed?: number, turnRate?: number) {
+        s.follow(target, speed, turnRate)
+    }
 }
 
 namespace game {
@@ -632,5 +644,49 @@ namespace text {
     //% blockNamespace="text"
     export function trim_block(s: string) {
         return s.trim()
+    }
+
+    /**
+     * Attempts to return an integer from the given text. Returns NaN if no integer was found. Optional radix input specifies the base of the given input. The default is (of course) base 10.
+     */
+    //% blockID="extras_parse_int"
+    //% block="convert $s to integer || with radix $radix"
+    //% radix.defl=10
+    //% blockNamespace="text"
+    export function parseInt_block(s: string, radix?: number) {
+        return parseInt(s, radix)
+    }
+
+    /**
+     * Converts a string into an intager, using a certain radix/base.
+     */
+    //% blockID="extras_parse_radix_str"
+    //% block="convert $n to string with radix $radix"
+    //% radix.defl=10
+    //% blockNamespace="text"
+    export function toString_block(n: number, radix: number) {
+        if (!n) return n
+        
+        Math.trunc(n)
+        Math.trunc(radix)
+
+        if (radix < 2 || radix > 36) control.fail("radix must be between 2 and 36 in convert to string block") 
+
+        const chars = "0123456789abcdefghijklmnopqrstuvwxyz" 
+        
+        if (radix > n) return chars.charAt(n)
+
+        let s = ""
+        let div = radix
+
+        while (div * radix <= n) div *= radix
+        
+        while (div >= 1) {
+            s = s + chars.charAt((n / div) | 0)
+            n %= div
+            div /= radix
+        }
+
+        return s
     }
 }

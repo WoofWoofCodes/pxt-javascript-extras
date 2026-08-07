@@ -38,6 +38,12 @@ namespace sprites {
     }
 }
 
+declare interface Sprite {
+    //% group="Physics" blockSetVariable="mySprite"
+    //% blockCombine block="id"
+    id: number;
+}
+
 namespace game {
     //% blockId=extras_on_update
     //% block="on game update"

@@ -194,7 +194,22 @@ namespace scene {
     //% handlerStatement
     export function createRenderable_block(index: number, handler: (screen: Image) => void) {
         scene.createRenderable(index, handler);
-    }    
+    }
+
+    /**
+     * Pushes current scene state to a list of states that can be recalled using the "pop scene" block. "State" refers to stuff like game physics, sprites, tilemaps, loops, events, and controller events.
+     */
+    //%block="push scene"
+    export function pushScene_block() {
+        game.pushScene()
+    }
+    /**
+     * Brings back most recently pushed scene, deleting the current scene permanently.
+     */
+    //%block="pop scene"
+    export function popScene_block() {
+        game.popScene()
+    }
 }
 
 namespace Math {
@@ -244,6 +259,16 @@ namespace Math {
     export function bitOp_not_block(a: number) {
         return ~a
     }
+
+    //% blockID="extras_is_NaN"
+    //% block="$n is NaN"
+    export function isNaN_block(n: number) {
+        return Number.isNaN(n)
+    }
+
+    //% blockIdentity="Math._constant"
+    //% block="Epsilon"
+    export const EPSILON = Number.EPSILON;
 }
 
 namespace info {
@@ -565,6 +590,12 @@ namespace buffer {
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 namespace arrays_blocks {
     //% blockID="extras_slice_array"
     //% block="Get array of $a from $s to $e"
@@ -586,6 +617,80 @@ namespace arrays_blocks {
     //% blockNamespace="arrays"
     export function copy_array_block(a: Array<any>) {
         return a.slice()
+    }  
+
+    //% blockID="extras_concat_array"
+    //% block="$target=variables_get(list) concat $source=variables_get(list)"
+    //% group="Operations"
+    //% blockNamespace="arrays"
+    export function concat_array_block(target: Array<any>, source: Array<any>) {
+        target.concat(source)
+    }
+
+    /**
+     * Deletes elements in an array given a starting point and a number of elements to delete.
+     */
+    //% blockID="extras_splice_array"
+    //% block="$target=variables_get(list) splice from $start length $deleteCount"
+    //% group="Operations"
+    //% blockNamespace="arrays"
+    export function splice_array_block(target: Array<any>, start: number, deleteCount: number) {
+        target.splice(start, deleteCount)
+    }
+
+    /**
+     * Outputs a string made of all elements in an array, separated by commas or a separator sting if given.
+     */
+    //% blockID="extras_join_array"
+    //% block="join $target=variables_get(list) || with separator $separator"
+    //% group="Operations"
+    //% blockNamespace="arrays"
+    export function join_array_block(target: Array<any>, separator: string) {
+        return target.join(separator)
+    }
+
+    /**
+     * Call a defined callback function on each element of an array, and return an array containing the results.
+     */
+    ///% blockID="extras_map_array"
+    ///% block="for every element in $target=variables_get(list) run"
+    ///% group="Operations"
+    ///% blockNamespace="arrays"
+    //export function map_array_block(target: Array<any>, funct: (value: any, index: number) => {}) {
+    //    return target.map(funct)
+    //}
+
+    /*
+    let a = [0, 1, 2, 3, 4, 5]
+    a.fill()
+    game.splash(a.join(" "))
+    //*/
+    
+    /*	Anything with a callback function with parameters seems to be impossible
+        //myArray.concat()
+        //myArray.splice()
+        //myArray.join() 
+
+        myArray.some() impossible
+        myArray.every() impossible
+        Array.sort() probably impossible idk
+        myArray.map() // impossible
+        myArray.filter() // impossible
+        myArray.find() // Not the same as myArray.indexOf() // impossible
+        myArray.reduce() // impossible
+        
+        //myArray.fill()
+    */
+
+    /**
+     * 
+     */
+    //% blockID="extras_fill_array"
+    //% block="fill $target=variables_get(list) with $value || from $start to $end"
+    //% group="Operations"
+    //% blockNamespace="arrays"
+    export function fill_block(target: Array<any>, value: any, start?: number, end?: number) {
+        return target.fill(value, start, end)
     }
 }
 

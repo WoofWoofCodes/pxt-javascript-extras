@@ -358,6 +358,13 @@ namespace images {
         return color
     }
 
+    //% blockId="extras_fill_polygon_4j"
+    //% block="draw filled 4-sided polygon on $image=variables_get(picture) x0 $x0 y0 $y0 x1 $x1 y1 $y1 x2 $x2 y2 $y2 x3 $x3 y3 $y3 color $c=colorindexpicker"
+    //% group="Drawing"
+    export function fill_polygon_4_block(image: Image, x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, c: number) {
+        image.fillPolygon4(x0, y0, x1, y1, x2, y2, x3, y3, c)
+    }
+
     /** 
     * Returns an image rotated by -90, 90, -180, 180, -270, 270 deg clockwise. Only works well with square images.
     */
